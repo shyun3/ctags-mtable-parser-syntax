@@ -536,7 +536,7 @@ syntax match ctagsRegexAnonymousFlagPrefix /\v\=@<=([^\\}]|\\.)*\}@=/ contained 
 
 syntax match ctagsRegexExtraFlag /\v\{@<=_extra>/ contained nextgroup=ctagsRegexExtraFlagDelim,ctagsErrorFallback
 syntax match ctagsRegexExtraFlagDelim /=/ contained nextgroup=ctagsRegexExtraFlagName,ctagsErrorFallback
-syntax match ctagsRegexExtraFlagName /\v\=@<=\w+\}@=/ contained nextgroup=ctagsListSelectorDelim,ctagErrorFallback
+syntax match ctagsRegexExtraFlagName /\v\=@<=\w+\}@=/ contained nextgroup=ctagsListSelectorDelim,ctagsErrorFallback
 
 syntax match ctagsRegexFieldFlag /\v\{@<=_field>/ contained nextgroup=ctagsRegexFieldFlagDelim,ctagsErrorFallback
 syntax match ctagsRegexFieldFlagDelim /=/ contained nextgroup=ctagsRegexFieldFlagName,ctagsErrorFallback
@@ -630,7 +630,7 @@ syntax match ctagsMTableExtendedRegexp '\v/@<=%([^\\/]|\\.)+%(%(/%([^\\/]|\\.)*)
 syntax match ctagsMTableBasicRegexp '\v/@<=%([^\\/]|\\.)+%(%(/%([^\\/]|\\.)*){2}/%(%(\{%(\w+%(\=%([^\\/}]|\\.|\\})+)?)\}|\w+)*(\{basic\}|b)%(\{%(\w+%(\=%([^/}]|\\/|\\})+)?)\}|\w+)*(\{\{)?$))@=' contained keepend contains=@ctagsBasicRegexp nextgroup=ctagsMTableTagDelim,ctagsErrorFallback
 syntax match ctagsMTablePcreRegexp '\v/@<=%([^\\/]|\\.)+%(%(/%([^\\/]|\\.)*){2}/%(%(\{%(\w+%(\=%([^\\/}]|\\.|\\})+)?)\}|\w+)*(\{pcre[0-9]?\}|p)%(\{%(\w+%(\=%([^/}]|\\/|\\})+)?)\}|\w+)*(\{\{)?$))@=' contained keepend contains=@ctagsPcreRegexp nextgroup=ctagsMTableTagDelim,ctagsErrorFallback
 syntax match ctagsMTableTagDelim '/' contained nextgroup=ctagsMTableTag,ctagsErrorFallback
-syntax match ctagsMTableTag '\v/@<=([^\\/]|\\.)*/@=' contained contains=ctagsBackreference nextgroup=ctagsMTableKindDelim,ctagErrorFallback
+syntax match ctagsMTableTag '\v/@<=([^\\/]|\\.)*/@=' contained contains=ctagsBackreference nextgroup=ctagsMTableKindDelim,ctagsErrorFallback
 syntax match ctagsMTableKindDelim '/' contained nextgroup=ctagsMTableKind,ctagsErrorFallback
 syntax match ctagsMTableKind '\v/@<=([^\\/]|\\.)*/@=' contained keepend contains=ctagsMTableKindLetter,ctagsErrorFallback nextgroup=ctagsMTableFlagsDelim,ctagsErrorFallback
 syntax match ctagsMTableKindLetter '\v/@<=\w[,/]@=' contained nextgroup=ctagsMTableKindNameDelim
