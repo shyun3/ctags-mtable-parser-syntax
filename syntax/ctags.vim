@@ -619,18 +619,20 @@ highlight link ctagsMRegexAdvanceFlagPositionIndex ctagsRegexpCharClass
 
 " Multi-table regexp line
 "
-"   --_mtable-regex-vim=table_name/LINE_PATTERN/tag_name/K,name,kind description/LONGFLAGS
+"   --_mtable-regex-vim=table_name/LINE_PATTERN/tag_name/[K,name,kind description/]LONGFLAGS
 "
 syntax match ctagsMTable /\v^\s*\-\-_mtable-regex\-/ nextgroup=ctagsMTableLang,ctagsErrorFallback
 syntax match ctagsMTableLang /\v\-@<=[^=]+\=@=/ contained nextgroup=ctagsMTableDelim,ctagsErrorFallback
 syntax match ctagsMTableDelim /=/ contained nextgroup=ctagsMTableName,ctagsErrorFallback,ctagsErrorFallback
 syntax match ctagsMTableName '\v\=@<=\w+>/@=' contained nextgroup=ctagsMTableRegexpDelim,ctagsErrorFallback
 syntax match ctagsMTableRegexpDelim '/' contained nextgroup=ctagsMTableExtendedRegexp,ctagsMTableBasicRegexp,ctagsMTablePcreRegexp,ctagsErrorFallback
-syntax match ctagsMTableExtendedRegexp '\v/@<=%([^\\/]|\\.)+%(%(/%([^\\/]|\\.)*){2}/%(%([bp]@!\w)|(\{%(basic|pcre[0-9]?)\})@!\{%(\w+%(\=%([^/}]|\\/|\\})+)?)\})*(\{\{)?$)@=' contained keepend contains=@ctagsPosixExtendedRegexp nextgroup=ctagsMTableTagDelim,ctagsErrorFallback
-syntax match ctagsMTableBasicRegexp '\v/@<=%([^\\/]|\\.)+%(%(/%([^\\/]|\\.)*){2}/%(%(\{%(\w+%(\=%([^\\/}]|\\.|\\})+)?)\}|\w+)*(\{basic\}|b)%(\{%(\w+%(\=%([^/}]|\\/|\\})+)?)\}|\w+)*(\{\{)?$))@=' contained keepend contains=@ctagsBasicRegexp nextgroup=ctagsMTableTagDelim,ctagsErrorFallback
-syntax match ctagsMTablePcreRegexp '\v/@<=%([^\\/]|\\.)+%(%(/%([^\\/]|\\.)*){2}/%(%(\{%(\w+%(\=%([^\\/}]|\\.|\\})+)?)\}|\w+)*(\{pcre[0-9]?\}|p)%(\{%(\w+%(\=%([^/}]|\\/|\\})+)?)\}|\w+)*(\{\{)?$))@=' contained keepend contains=@ctagsPcreRegexp nextgroup=ctagsMTableTagDelim,ctagsErrorFallback
+syntax match ctagsMTableExtendedRegexp '\v/@<=%([^\\/]|\\.)+%(/%(%([^\\/]|\\.)*/){1,2}%(%([bp]@!\w)|(\{%(basic|pcre[0-9]?)\})@!\{%(\w+%(\=%([^/}]|\\/|\\})+)?)\})*(\{\{)?$)@=' contained keepend contains=@ctagsPosixExtendedRegexp nextgroup=ctagsMTableTagDelim,ctagsErrorFallback
+syntax match ctagsMTableBasicRegexp '\v/@<=%([^\\/]|\\.)+%(/%(%([^\\/]|\\.)*/){1,2}%(%(\{%(\w+%(\=%([^\\/}]|\\.|\\})+)?)\}|\w+)*(\{basic\}|b)%(\{%(\w+%(\=%([^/}]|\\/|\\})+)?)\}|\w+)*(\{\{)?$))@=' contained keepend contains=@ctagsBasicRegexp nextgroup=ctagsMTableTagDelim,ctagsErrorFallback
+syntax match ctagsMTablePcreRegexp '\v/@<=%([^\\/]|\\.)+%(/%(%([^\\/]|\\.)*/){1,2}%(%(\{%(\w+%(\=%([^\\/}]|\\.|\\})+)?)\}|\w+)*(\{pcre[0-9]?\}|p)%(\{%(\w+%(\=%([^/}]|\\/|\\})+)?)\}|\w+)*(\{\{)?$))@=' contained keepend contains=@ctagsPcreRegexp nextgroup=ctagsMTableTagDelim,ctagsErrorFallback
 syntax match ctagsMTableTagDelim '/' contained nextgroup=ctagsMTableTag,ctagsErrorFallback
-syntax match ctagsMTableTag '\v/@<=([^\\/]|\\.)*/@=' contained contains=ctagsBackreference nextgroup=ctagsMTableKindDelim,ctagsErrorFallback
+syntax match ctagsMTableTag '\v/@<=([^\\/]|\\.)*/@=' contained contains=ctagsBackreference nextgroup=ctagsMTableKindOrFlagsDelim,ctagsErrorFallback
+syntax match ctagsMTableKindOrFlagsDelim '\ze/' contained nextgroup=ctagsMTableFlagsDelim,ctagsErrorFallback
+syntax match ctagsMTableKindOrFlagsDelim '\v\ze/([^\\/]|\\.)*/' contained nextgroup=ctagsMTableKindDelim,ctagsErrorFallback
 syntax match ctagsMTableKindDelim '/' contained nextgroup=ctagsMTableKind,ctagsErrorFallback
 syntax match ctagsMTableKind '\v/@<=([^\\/]|\\.)*/@=' contained keepend contains=ctagsMTableKindLetter,ctagsErrorFallback nextgroup=ctagsMTableFlagsDelim,ctagsErrorFallback
 syntax match ctagsMTableKindLetter '\v/@<=\w[,/]@=' contained nextgroup=ctagsMTableKindNameDelim
